@@ -5,5 +5,7 @@ const globalRoutes = express.Router()
 
 globalRoutes.get('/', HomeController)
 
+// globalRoutes.get('/dashboard',protectedDashboard);
+
 
 export default globalRoutes;
