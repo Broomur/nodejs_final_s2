@@ -1,0 +1,24 @@
+mixin menuItem(itemTitle, href)
+	li(class=(title === itemTitle) ? "active link": "link")
+		a(href=href)  #{itemTitle}
+
+doctype html 
+html(lang="fr")
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, intial-scale=1.0")
+		link(rel="stylesheet", href="/assets/css/style.css")
+		title= title 
+
+	body 
+		header 
+			nav 
+				ul 
+					+menuItem('Home', '/')
+					+menuItem('Register', '/register')
+					+menuItem('Login', '/login')
+
+
+		block content 
+
+		footer 2023 | Bisous!
