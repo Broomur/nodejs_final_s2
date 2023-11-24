@@ -10,7 +10,7 @@ export const RegisterController = async (req, res) => {
 		const { firstname, lastname, email, password } = req.body;
 		const user = await User.findOne({ email: email });
 		if (user) {
-			res.redirect("/login");
+			res.render("pages/login", { title: "Register", message: "Un compte avec cette adresse email existe déjà." });
 		} else {
 			const newUser = {
 				firstname: firstname,
@@ -20,7 +20,7 @@ export const RegisterController = async (req, res) => {
 			}
 			try {
 				await User.create(newUser);
-				res.render("pages/register", { title: "Register", message: "Inscription réussie !" });
+				res.render("pages/login", { title: "Register", message: "Inscription réussie !" });
 			} catch (error) {
 				res.render("pages/register", { title: "Register", message: "Échec de l'inscription" });
 			}
