@@ -1,4 +1,5 @@
 import express from "express";
+import session from "express-session";
 import { stat } from "node:fs";
 import { join } from "node:path";
 import dotenv from "dotenv";
@@ -12,12 +13,17 @@ const app = express();
 const cwd = process.cwd();
 
 const staticPath = join(cwd, 'public');
-const viewPath = join(cwd, 'views');
+
 
 const { PORT, HOST } = process.env;
 
 app.use(express.static(staticPath));
-
+app.use(session({
+	name: "user",
+	secret: process.env.SECRET,
+	resave: false,
+	saveUninitialized: false
+}))
 app.use(express.urlencoded({
 	extended: false
 }));

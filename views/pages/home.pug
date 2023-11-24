@@ -3,4 +3,7 @@ extends ../layout/layout
 block content 
 	main.container 
 		h1#title #{title}
-		p Bienvenue sur notre site Web :)
+		if message
+			p#message(class=`${message.status ? "successMessage" : "errorMessage"}`) #{message.message}
+		else 
+			p Bienvenue sur notre site Web :)
