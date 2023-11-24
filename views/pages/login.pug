@@ -3,7 +3,7 @@ extends ../layout/layout
 block content 
 	main.container 
 		h1#title #{title}
-		p Welcome back!
+		p#message #{message ? message : "Welcome back!"}
 		form(action="/login", method="post")
 			legend Connexion 
 			label(for ="email") Email
