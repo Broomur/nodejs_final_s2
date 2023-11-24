@@ -13,7 +13,7 @@ block content
 			input(type="text", id="lastname", name="lastname", required)
 			
 			label(for="email") Email 
-			input(type="text", id="email", name="email", required)
+			input(type="email", id="email", name="email", required)
 			
 			label(for="password") Mot de passe 
 			input(type="password", id="password", name="password", required)
@@ -23,7 +23,8 @@ block content
 			p#passwordMatch
 			input(type="submit", id="submitButton", value="Valider")
 
-			p#message #{message}
+			if message
+				p#message(class=`${message.status ? "successMessage" : "errorMessage"}`) #{message}
 
 	
 	script.

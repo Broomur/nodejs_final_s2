@@ -1,11 +1,9 @@
-import express from 'express';
-import session from 'express-session';
-
-
-export const protectedDashboard = (req, res, next) => {
-if (req.session && req.session.user){
+const AuthMiddleware = (req, res, next) => {
+if (req.session && req.session.auth){
     next();
 }else{
     res.redirect('/login');
 }
 };
+
+export default AuthMiddleware

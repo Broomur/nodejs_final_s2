@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -10,17 +12,20 @@ body {
 }
 
 header {
+    font-family: 'Rubik', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0;
-    background: #282828;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
+    max-width: fit-content;
+    margin: 0 auto;
 }
 
+
 header nav ul {
+    margin-top: .5rem;
     display: flex;
+    gap: 1.5rem;
     height: 50px;
     list-style: none;
     align-items: center;
@@ -38,35 +43,31 @@ header nav ul {
     font-size: 18px;
     padding: 0 20px;
     transition: all 0.3s ease 0s;
-    border: 1px solid #515151;
     height: 50px;
     display: flex;
     align-items: center;
 }
 
 .link a {
-    color: inherit;
+    color: #D7A35B;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .link:hover {
     color: #ff4b2b;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
-    border-top: 1px solid #fff;
+    text-transform: uppercase;
 }
 
-.link.active  {
-    color: #ff4b2b;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
-    border-top: 1px solid #fff;
+.link.active a {
+    color: #0D382E;
+    font-weight: 700;
 }
 
 #title {
-    color: #ff4b2b;
-    font-size: 20px;
-    padding: 0 20px;
+    color: #D7A35B;
+    font-size: 30px;
+    margin: 2rem 0;
     transition: all 0.3s ease 0s;
     border: 1px solid transparent;
     border-bottom-color: #515151;
@@ -103,10 +104,61 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background: #282828;
+    background: #0D382E;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #fafafa;
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+form > legend {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: .5rem;
+    color: #0D382E;
+}
+
+form > input:not(#submitButton) {
+    height: 2.5rem;
+    border-radius: 6px;
+}
+
+form > #submitButton {
+    width: 20%;
+    height: 2.4rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 6px;
+    background-color: #D7A35B;
+    font-family: 'Rubik', sans-serif;
+    color: #0D382E;
+}
+
+form > #submitButton:hover {
+    box-shadow: .5px 2px hsla(0, 0%, 0%, 0.5);
+}
+
+form > #passwordMatch {
+    color: #963903;
+    font-weight: bold;
+}
+
+.successMessage {
+    color: #0D382E;
+    font-weight: bold;
+    border-color: #0D382E;
+}
+
+.errorMessage {
+    color: #963903;
+    font-weight: bold;
+    border-color: #963903;
 }

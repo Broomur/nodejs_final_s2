@@ -3,14 +3,17 @@ import CryptoJS from "crypto-js";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const RegisterController = async (req, res) => {
+const RegisterController = async (req, res) => {
 	if (req.method === "GET") {
-		res.render("pages/register", { title: "Register" });
+		const message = req.session.message ? req.session.message : undefined;
+		req.session.message = undefined;
+		res.render("pages/register", { title: "Register", message: message, auth: req.session.auth });
 	} else if (req.method === "POST") {
 		const { firstname, lastname, email, password } = req.body;
 		const user = await User.findOne({ email: email });
 		if (user) {
-			res.render("pages/login", { title: "Register", message: "Un compte avec cette adresse email existe déjà." });
+			req.session.message = { status: false, message: "Un compte avec cette adresse email existe déjà." };
+			res.redirect("/login");
 		} else {
 			const newUser = {
 				firstname: firstname,
@@ -19,11 +22,17 @@ export const RegisterController = async (req, res) => {
 				password: CryptoJS.HmacSHA256(password, process.env.SECRET)
 			}
 			try {
+				req.session.message = { status: true, message: "Inscription réussie !" };
+				res.redirect("/login");
 				await User.create(newUser);
-				res.render("pages/login", { title: "Register", message: "Inscription réussie !" });
 			} catch (error) {
-				res.render("pages/register", { title: "Register", message: "Échec de l'inscription" });
+				console.log(error.message);
+				req.session.message = { status: false, message: "Échec de l'inscription." };
+				res.status(500).redirect("/register");
 			}
+			
 		}
 	}
 };
+
+export default RegisterController;
