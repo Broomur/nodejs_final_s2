@@ -1,0 +1,51 @@
+extends ../layout/layout
+
+block content
+	main.container
+		h1#title #{title}
+		form(action="/register", method="post", id="registerForm")
+			legend Inscription 
+			
+			label(for="firstname") Prénom 
+			input(type="text", id="firstname", name="firstname", required)
+			
+			label(for="lastname") Nom 
+			input(type="text", id="lastname", name="lastname", required)
+			
+			label(for="email") Email 
+			input(type="text", id="email", name="email", required)
+			
+			label(for="password") Mot de passe 
+			input(type="password", id="password", name="password", required)
+			
+			label(for="passwordVerify") Retapez votre mot de passe 
+			input(type="password", id="passwordVerify", required)
+			p#passwordMatch
+			input(type="submit", id="submitButton", value="Valider")
+
+			p#message #{message}
+
+	
+	script.
+		const registerForm = document.querySelector("#registerForm");
+		const password = document.querySelector("#password");
+		const passwordVerify = document.querySelector("#passwordVerify");
+		const passwordMatch = document.querySelector("#passwordMatch");
+		const submitBtn = document.querySelector("#submitButton");
+		function checkPasswordMatch() {
+			if (password.value === passwordVerify.value) {
+				passwordMatch.textContent = "";
+				submitBtn.removeAttribute("disabled");
+			} else {
+				passwordMatch.textContent = "Les mots de passe ne correspondent pas.";
+				submitBtn.setAttribute("disabled", "true");
+			}
+		}
+
+		password.addEventListener("input", checkPasswordMatch);
+		passwordVerify.addEventListener("input", checkPasswordMatch);
+		registerForm.addEventListener("submit", (event) => {
+			if (password.value !== passwordVerify.value) {
+				event.preventDefault();
+			}
+		})
