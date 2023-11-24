@@ -3,7 +3,11 @@ import { stat } from "node:fs";
 import { join } from "node:path";
 import dotenv from "dotenv";
 import globalRoutes from "./routes/globalRoutes.js";
+<<<<<<< HEAD
 import loginRoutes from "./routes/loginRoutes.js";
+=======
+import registerRoutes from "./routes/registerRoutes.js";
+>>>>>>> f4a376a (register ok)
 dotenv.config();
 
 const app = express();
@@ -24,7 +28,11 @@ app.use(express.urlencoded({
 app.set("view engine", "pug");
 
 app.use(globalRoutes);
+<<<<<<< HEAD
 app.use(loginRoutes);
+=======
+app.use(registerRoutes)
+>>>>>>> f4a376a (register ok)
 
 app.listen(PORT, HOST, () => {
 	console.log(`Listening on http://${HOST}:${PORT}`);
