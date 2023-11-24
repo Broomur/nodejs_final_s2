@@ -9,3 +9,13 @@ if (req.session && req.session.user){
     res.redirect('/login');
 }
 };
+
+export const auth = (req,res,next) => {
+    if (req.session.auth) {
+        req.session.message = "Vous êtes connecté";
+        return next()
+    }
+
+    req.session.message = "Accès refusée";
+    res.redirect('/login')
+}
