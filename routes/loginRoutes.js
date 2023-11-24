@@ -1,9 +1,10 @@
 import express from "express";
-import { loginController } from "../controllers/loginController.js";
+import LoginController  from "../controllers/loginController.js";
 
 const loginRoutes = express.Router()
 
-loginRoutes.get('/login', loginController)
+loginRoutes.all('/login', LoginController);
+loginRoutes.get('/logout', LoginController);
 
 
 export default loginRoutes;

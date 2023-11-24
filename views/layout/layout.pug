@@ -15,10 +15,18 @@ html(lang="fr")
 			nav 
 				ul 
 					+menuItem('Home', '/')
-					+menuItem('Register', '/register')
-					+menuItem('Login', '/login')
-
+					if auth 
+						+menuItem('Dashboard', '/dashboard')
+						+menuItem('Logout', '/logout')
+					else
+						+menuItem('Register', '/register')
+						+menuItem('Login', '/login')
+		
 
 		block content 
 
 		footer 2023 | Bisous!
+
+		script.
+			console.log(#{message});
+			console.log(#{auth})

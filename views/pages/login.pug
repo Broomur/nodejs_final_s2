@@ -3,11 +3,14 @@ extends ../layout/layout
 block content 
 	main.container 
 		h1#title #{title}
-		p Welcome back!
+		if message
+			p#message(class=`${message.status ? "successMessage" : "errorMessage"}`) #{message.message}
+		else 
+			p Welcome back!
 		form(action="/login", method="post")
 			legend Connexion 
 			label(for ="email") Email
 			input(type= "email", id = "email", name="email")
 			label(for="password") Mot de passe 
 			input(type= "password", id = "password", name="password")
-			input(type= "submit", value= "Valider")
+			input(type= "submit", id="submitButton", value= "Valider")

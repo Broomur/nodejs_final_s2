@@ -1,37 +1,39 @@
-import crypto from 'cryptojs';
-import session from 'express-session';
+import User from "../models/User.js";
+import CryptoJS from "crypto-js";
+import dotenv from "dotenv";
+dotenv.config();
 
-export const loginController = (req, res) => {
+const LoginController = async (req, res) => {
 	if (req.method === "GET") {
-		res.render("pages/login", { title: "Login"});
+		if (req.path === "/login") {
+			const message = req.session.message ? req.session.message : undefined;
+			req.session.message = undefined;
+			res.render("pages/login", { title: "Login", message: message, auth: req.session.auth });
+		} else if (req.path === "/logout") {
+			req.session.message = { status: true, message: "See you soon ;)" };
+			req.session.auth = false;
+			res.redirect("/");
+		}
+	} else if(req.method === "POST") {
+		const {email, password} = req.body;
+		if(!email || !password) {
+			req.session.message = { status: false, message: "Merci de remplir tout les champs" };
+			res.redirect("/login");
+		} else if(email && password) {
+			const hashedPswd = CryptoJS.HmacSHA256(password, process.env.SECRET);
+			const user = await User.findOne({ email: email, password: hashedPswd });
+			if (user) {
+				req.session.auth = true;
+				req.session.message = { status: true, message: "Connexion reussie" };
+				res.redirect("/dashboard");
+			} else {
+				req.session.auth = false;
+				req.session.message = { status: false, message: "Mauvais email/mot de passe..." };
+				res.redirect("/login");
+			}
+
+		}
 	}
-
-
-    if(req.method === "POST") {
-    const {email, password} = req.body
-    const {email: e, password: p} = user
-
-    req.session.auth = false
-
-    if(!email || !password) {
-        req.session.message = 'Merci de remplir tout les champs';
-        res.redirect('/')
-        return
-    }
-
-    if(email === e && SHA256(password).toString() === p) {
-        req.session.auth = true;
-        req.session.message = 'Connexion reussi';
-
-        res.redirect('/dashboard');
-        return
-    }
-
-    req.session.message = 'Mauvais identifiant'
-    res.redirect('/')
-}
 };
 
-export const dashboard = (req,res) => {
-    res.render("pages/Dashboard", { title: "Dashboard"});
-}
+export default LoginController;
