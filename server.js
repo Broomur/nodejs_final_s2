@@ -7,7 +7,6 @@ import globalRoutes from "./routes/globalRoutes.js";
 import registerRoutes from "./routes/registerRoutes.js";
 =======
 import loginRoutes from "./routes/loginRoutes.js";
->>>>>>> a4c7396 (login en cours)
 dotenv.config();
 
 const app = express();
@@ -28,11 +27,7 @@ app.use(express.urlencoded({
 app.set("view engine", "pug");
 
 app.use(globalRoutes);
-<<<<<<< HEAD
-app.use(registerRoutes)
-=======
 app.use(loginRoutes);
->>>>>>> a4c7396 (login en cours)
 
 app.listen(PORT, HOST, () => {
 	console.log(`Listening on http://${HOST}:${PORT}`);
